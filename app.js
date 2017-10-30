@@ -7,10 +7,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+//mongoose.connect('mongodb://lpkim09:younghee@ds241025.mlab.com:41025/bp_db'); 
 var connection = mongoose.connect('mongodb://lpkim09:younghee@ds147551.mlab.com:47551/bp');//'mongodb://lpkim09:younghee@ds241025.mlab.com:41025/bp_db')
 
 var ProductSchema = require("./models/Products");
+
+const newProduct = new ProductSchema();
+
+newProduct.brand = "Some Brand";
+newProduct.category = "some Category";
+newProduct.sub_category="Some Sub Category";
+newProduct.product = "Description of the product";
+newProduct.product_detail = "Detail of product";
+newProduct.ingredients = ["water", "meat", "salt"];
+newProduct.review = ["A good review", "Bad Review"];
+
+newProduct.save();
 
 var index = require('./routes/index');
 var users = require('./routes/users');
