@@ -1,12 +1,20 @@
+"use strict";
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var connection = mongoose.connect('mongodb://lpkim09:younghee@ds147551.mlab.com:47551/bp');//'mongodb://lpkim09:younghee@ds241025.mlab.com:41025/bp_db')
+
+var ProductSchema = require("./models/Products");
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+const products = require('./routes/products');
 
 var app = express();
 
@@ -22,8 +30,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// set the routes with the prefix
 app.use('/', index);
 app.use('/users', users);
+app.use('/products', products);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
